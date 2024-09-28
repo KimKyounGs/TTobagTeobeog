@@ -10,6 +10,7 @@ public class MiniGameDiceRoller : MonoBehaviour
     {
         diceRigidbody = GetComponent<Rigidbody>();
         diceRigidbody.isKinematic = true;  // 활성화될 때마다 초기화
+        throwForce = 6f;
     }
 
     public void RollDice()
@@ -31,7 +32,6 @@ public class MiniGameDiceRoller : MonoBehaviour
         {
             int result = CheckTopFace();
 
-            Debug.Log("DiceController에게 값 전달!");
             // DiceController에 결과 전달
             MiniGameManager.instance.diceController.SaveDiceResult(result);
         }

@@ -16,9 +16,10 @@ public class MiniGameDiceController : MonoBehaviour
 
     void Start()
     {
-        needDiceCnt = 5;
+        needDiceCnt = 6; // 굴려야 할 주사위 개수 (예시로 6개로 설정)
         MiniGameManager.instance.diceController = this; 
     }
+
     public void SetNeedDiceCnt(int cnt)
     {
         needDiceCnt = cnt;
@@ -54,8 +55,8 @@ public class MiniGameDiceController : MonoBehaviour
         // 모든 주사위가 굴려졌으면 결과 시뮬레이션 시작
         if (totalDiceCnt >= needDiceCnt)
         {
-            Debug.Log("주사위 다 굴려졌다!");
-            StartCoroutine(SimulateResults());
+            Debug.Log("모든 주사위가 굴려졌습니다!");
+            StartCoroutine(SimulateResults()); // 모든 결과가 나온 후 실행
         }
     }
 
@@ -63,49 +64,50 @@ public class MiniGameDiceController : MonoBehaviour
     IEnumerator SimulateResults()
     {
         yield return new WaitForSeconds(1f); // 텀을 두고 실행
-        // 주사위 1 처리
-        if (side1Result > 0)
+
+        // 주사위 6 처리
+        if (side6Result > 0)
         {
-            Debug.Log("주사위1 실행");
+            Debug.Log("주사위 6 결과 실행");
             if (MiniGameManager.instance.IsPlayerTurn)
             {
-                MiniGameManager.instance.ai.DecreaseHealth(side1Result*2);
+                MiniGameManager.instance.diceManager.AddReusableDice(true, side6Result);
             }
             else
             {
-                MiniGameManager.instance.player.DecreaseHealth(side1Result*2);
+                MiniGameManager.instance.diceManager.AddReusableDice(false, side6Result);
             }
-            yield return new WaitForSeconds(1f); // 텀을 두고 실행
+            yield return new WaitForSeconds(1.5f);
         }
 
         // 주사위 2 처리
         if (side2Result > 0)
         {
-            Debug.Log("주사위2 실행");
+            Debug.Log("주사위 2 결과 실행");
             if (MiniGameManager.instance.IsPlayerTurn)
-            {
-                MiniGameManager.instance.ai.IncreaseDefense(side2Result);
-            }
-            else
             {
                 MiniGameManager.instance.player.IncreaseDefense(side2Result);
             }
-            yield return new WaitForSeconds(1f); // 텀을 두고 실행
+            else
+            {
+                MiniGameManager.instance.ai.IncreaseDefense(side2Result);
+            }
+            yield return new WaitForSeconds(1.5f);
         }
 
         // 주사위 3 처리
         if (side3Result > 0)
         {
-            Debug.Log("주사위3 실행");
+            Debug.Log("주사위 3 결과 실행");
             MiniGameManager.instance.ai.IncreaseDefense(side3Result);
             MiniGameManager.instance.player.IncreaseDefense(side3Result);
-            yield return new WaitForSeconds(1f); // 텀을 두고 실행
+            yield return new WaitForSeconds(1.5f);
         }
 
         // 주사위 4 처리
         if (side4Result > 0)
         {
-            Debug.Log("주사위4 실행");
+            Debug.Log("주사위 4 결과 실행");
             if (MiniGameManager.instance.IsPlayerTurn)
             {
                 MiniGameManager.instance.player.DecreaseHealth(side4Result);
@@ -114,28 +116,37 @@ public class MiniGameDiceController : MonoBehaviour
             {
                 MiniGameManager.instance.ai.DecreaseHealth(side4Result);
             }
-            yield return new WaitForSeconds(1f); // 텀을 두고 실행
+            yield return new WaitForSeconds(1.5f);
         }
 
         // 주사위 5 처리
         if (side5Result > 0)
         {
-            Debug.Log("주사위5 실행");
+            Debug.Log("주사위 5 결과 실행");
             MiniGameManager.instance.ai.DecreaseHealth(side5Result);
             MiniGameManager.instance.player.DecreaseHealth(side5Result);
-            yield return new WaitForSeconds(1f); // 텀을 두고 실행
+            yield return new WaitForSeconds(1.5f);
         }
 
-        if (side6Result > 0)
+        // 주사위 1 처리 (결과값이 모아진 후 한 번에 처리)
+        if (side1Result > 0)
         {
-            Debug.Log("주사위6 실행");
-            MiniGameManager.instance.ai.IncreaseDiceCnt(side6Result);
-            MiniGameManager.instance.player.IncreaseDiceCnt(side6Result);
-            yield return new WaitForSeconds(1f); // 텀을 두고 실행
+            Debug.Log("주사위 1 결과 실행");
+            if (MiniGameManager.instance.IsPlayerTurn)
+            {
+                MiniGameManager.instance.ai.DecreaseHealth(side1Result * 2);
+            }
+            else
+            {
+                MiniGameManager.instance.player.DecreaseHealth(side1Result * 2);
+            }
+            yield return new WaitForSeconds(1.5f);
         }
 
-        yield return new WaitForSeconds(1f); // 텀을 두고 실행
+        // 턴 변경
+        yield return new WaitForSeconds(1.5f); // 텀을 두고 실행
         MiniGameManager.instance.TurnChange();
+
         // 결과 처리 후 변수 초기화
         ResetResults();
     }
@@ -148,6 +159,7 @@ public class MiniGameDiceController : MonoBehaviour
         side3Result = 0;
         side4Result = 0;
         side5Result = 0;
+        side6Result = 0;
         totalDiceCnt = 0;
     }
 }

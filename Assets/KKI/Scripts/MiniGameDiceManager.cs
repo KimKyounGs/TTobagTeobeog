@@ -7,8 +7,8 @@ public class MiniGameDiceManager : MonoBehaviour
     public int poolSize = 10;       // 오브젝트 풀의 크기
     private Queue<GameObject> dicePool;  // 주사위를 저장하는 큐
     private List<GameObject> currentTurnDice = new List<GameObject>();  // 현재 턴에 던진 주사위 리스트
-    public int playerDiceCount = 20;  // 플레이어가 가진 주사위 수
-    public int aiDiceCount = 20;      // AI가 가진 주사위 수
+    public int playerDiceCount = 15;  // 플레이어가 가진 주사위 수
+    public int aiDiceCount = 15;      // AI가 가진 주사위 수
     public int maxDicePerTurn = 6;    // 한 턴에 굴릴 수 있는 최대 주사위 수
     public Transform diceSpawnPoint;  // 주사위를 던질 위치
 
@@ -16,8 +16,8 @@ public class MiniGameDiceManager : MonoBehaviour
     {
         MiniGameManager.instance.diceManager = this;
         InitializeDicePool();
-        playerDiceCount = 20;
-        aiDiceCount = 20;
+        playerDiceCount = 15;
+        aiDiceCount = 15;
     }
 
     // 주사위 풀 초기화
@@ -62,12 +62,24 @@ public class MiniGameDiceManager : MonoBehaviour
         dicePool.Enqueue(dice);  // 오브젝트 풀로 반환
     }
 
+    // 턴이 끝나면 던진 주사위 회수
+    public void CollectDice()
+    {
+        foreach (var dice in currentTurnDice)
+        {
+            ReturnDiceToPool(dice);  // 오브젝트 풀로 주사위 반환
+        }
+
+        // 리스트 초기화
+        currentTurnDice.Clear();
+    }
+
     // 플레이어가 주사위를 굴리려고 할 때 호출
     public void RollPlayerDice()
     {
         int diceToThrow = Mathf.Min(playerDiceCount, maxDicePerTurn);  // 굴릴 주사위 개수 결정
         Debug.Log($"플레이어가 {diceToThrow}개의 주사위를 던집니다.");
-
+        MiniGameManager.instance.diceController.SetNeedDiceCnt(diceToThrow);
         for (int i = 0; i < diceToThrow; i++)
         {
             GameObject dice = GetDiceFromPool(diceSpawnPoint.position);
@@ -79,6 +91,7 @@ public class MiniGameDiceManager : MonoBehaviour
         }
 
         playerDiceCount -= diceToThrow;  // 굴린 주사위 개수 차감
+        MiniGameManager.instance.miniGameUIManager.SetDiceList(true, false, playerDiceCount);
         Debug.Log($"플레이어가 주사위를 굴린 후 남은 주사위: {playerDiceCount}");
     }
 
@@ -87,7 +100,7 @@ public class MiniGameDiceManager : MonoBehaviour
     {
         int diceToThrow = Mathf.Min(aiDiceCount, maxDicePerTurn);  // 굴릴 주사위 개수 결정
         Debug.Log($"AI가 {diceToThrow}개의 주사위를 던집니다.");
-
+        MiniGameManager.instance.diceController.SetNeedDiceCnt(diceToThrow);
         for (int i = 0; i < diceToThrow; i++)
         {
             GameObject dice = GetDiceFromPool(diceSpawnPoint.position);
@@ -99,19 +112,22 @@ public class MiniGameDiceManager : MonoBehaviour
         }
 
         aiDiceCount -= diceToThrow;  // 굴린 주사위 개수 차감
+        MiniGameManager.instance.miniGameUIManager.SetDiceList(false, false, aiDiceCount);
         Debug.Log($"AI가 주사위를 굴린 후 남은 주사위: {aiDiceCount}");
     }
 
-    // 턴이 끝나면 던진 주사위 회수
-    public void CollectDice()
+    public void AddReusableDice(bool isPlayerTurn, int additionalDice)
     {
-        foreach (var dice in currentTurnDice)
+        if (isPlayerTurn)
         {
-            ReturnDiceToPool(dice);  // 오브젝트 풀로 주사위 반환
+            playerDiceCount += additionalDice;  // 플레이어 주사위에 추가
+            Debug.Log($"플레이어가 재사용 가능한 주사위 {additionalDice}개를 추가하여 총 {playerDiceCount}개의 주사위를 가집니다.");
         }
-
-        // 리스트 초기화
-        currentTurnDice.Clear();
+        else
+        {
+            aiDiceCount += additionalDice;  // AI 주사위에 추가
+            Debug.Log($"AI가 재사용 가능한 주사위 {additionalDice}개를 추가하여 총 {aiDiceCount}개의 주사위를 가집니다.");
+        }
     }
 
     public int GetPlayerDiceCount() => playerDiceCount;

@@ -9,6 +9,7 @@ public class MiniGameManager : MonoBehaviour
     public MiniGameDiceManager diceManager;
     public MiniGamePlayer player;
     public MiniGameAI ai;
+    public MiniGameUIManager miniGameUIManager;
     public bool IsPlayerTurn;
     void Awake() 
     {
@@ -23,30 +24,18 @@ public class MiniGameManager : MonoBehaviour
         // 플레이어 턴일 때 Space바를 눌러 주사위를 굴림
         if (IsPlayerTurn && Input.GetKeyDown(KeyCode.Space))
         {
+            Debug.Log($"player Health = {player.GetHealth()}, player defense = {player.GetDefense()}");
             Debug.Log("플레이어가 Space바를 눌렀습니다.");
             diceManager.RollPlayerDice();  // 플레이어 주사위 던지기
         }
     }
-
-    public void EndGame(bool flag)
-    {
-        if (flag)
-        {
-            Debug.Log("플레이어 승!");
-        }
-        else 
-        {
-            Debug.Log("플레이어 패배!");
-        }
-    }
-    
     public void TurnChange()
     {
         Debug.Log("턴 변경!");
         // 턴이 끝나면 던진 주사위를 회수
         diceManager.CollectDice();
         IsPlayerTurn = !IsPlayerTurn;
-
+        
         if (IsPlayerTurn)
         {
             Debug.Log("플레이어 턴! Space바를 눌러서 주사위를 굴리세요.");
@@ -62,6 +51,20 @@ public class MiniGameManager : MonoBehaviour
     IEnumerator AIDiceRollDelay()
     {
         yield return new WaitForSeconds(2f);  // 2초 대기
+        Debug.Log($"ai Health = {ai.GetHealth()}, ai defense = {ai.GetDefense()}");
         diceManager.RollAIDice();  // AI 주사위 던지기
     }
+
+    public void EndGame(bool flag)
+    {
+        if (flag)
+        {
+            Debug.Log("플레이어 승!");
+        }
+        else 
+        {
+            Debug.Log("플레이어 패배!");
+        }
+    }
+    
 }
