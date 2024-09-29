@@ -3605,12 +3605,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 589f2c0cafc0e4b88a9edbe62a1d30d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  diceController: {fileID: 0}
-  diceManager: {fileID: 0}
-  player: {fileID: 0}
-  ai: {fileID: 0}
-  miniGameUIManager: {fileID: 0}
-  gameController: {fileID: 0}
+  diceController: {fileID: 1320156077}
+  diceManager: {fileID: 1320156078}
+  player: {fileID: 1320156075}
+  ai: {fileID: 1320156076}
+  miniGameUIManager: {fileID: 1320156079}
   IsPlayerTurn: 1
   hasRolled: 0
   audioSource: {fileID: 0}

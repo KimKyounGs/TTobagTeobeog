@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using UnityEditorInternal;
-using Unity.Properties;
 
 public class GameController : MonoBehaviour
 {
+    public static GameController instance;
     const int startMoney = 500;
     const int decreaseMoney = 400;
 
@@ -51,7 +50,17 @@ public class GameController : MonoBehaviour
         DontDestroyOnLoad(players[1]);
         DontDestroyOnLoad(players[2]);
         DontDestroyOnLoad(players[3]);
-        MiniGameManager.instance.gameController = this;
+
+        // 인스턴스가 없다면 이 객체를 유지
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject); // 이 오브젝트가 씬 전환 시 파괴되지 않음
+        }
+        else
+        {
+            Destroy(gameObject); // 중복된 인스턴스가 생기면 제거
+        }
     }
 
     void Start()

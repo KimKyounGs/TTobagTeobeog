@@ -12,7 +12,7 @@ public class MiniGameManager : MonoBehaviour
     public MiniGameAI ai;
     public MiniGameUIManager miniGameUIManager;
 
-    public GameController gameController;
+    // public GameController gameController;
     public bool IsPlayerTurn;
     public bool hasRolled;
 
@@ -38,6 +38,7 @@ public class MiniGameManager : MonoBehaviour
         {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
+        
     }
 
     void Start()
@@ -106,21 +107,21 @@ public class MiniGameManager : MonoBehaviour
         {
             miniGameUIManager.turnText.text = "플레이어 승리!";
             miniGameUIManager.ShowTurnNotification();
-            gameController.CallPlayer(1);
+            // gameController.CallPlayer(1);
             SceneManager.LoadScene("MainGame");
         }
         else if(flag == 2)
         {
             miniGameUIManager.turnText.text = "플레이어 패배!";
             miniGameUIManager.ShowTurnNotification();
-            gameController.CallPlayer(2);
+            // gameController.CallPlayer(2);
             SceneManager.LoadScene("MainGame");
         }
         else if(flag == 3)
         {
             miniGameUIManager.turnText.text = "무승부!";
             miniGameUIManager.ShowTurnNotification();
-            gameController.CallPlayer(3);
+            // gameController.CallPlayer(3);
             SceneManager.LoadScene("MainGame");
         }
     }
