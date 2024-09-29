@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEditorInternal;
+using Unity.Properties;
 
 public class GameController : MonoBehaviour
 {
@@ -34,6 +35,15 @@ public class GameController : MonoBehaviour
 
     public bool isPlaying = false;  // false = 진행중X(주사위 굴릴 수 있는 상태) true = 진행중O(주사위 못굴리는 상태)
     public bool isPaused = false;
+
+    public void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(Arrow[0]);
+        DontDestroyOnLoad(Arrow[0]);
+        DontDestroyOnLoad(Arrow[0]);
+        DontDestroyOnLoad(Arrow[0]);
+    }
 
     void Start()
     {
@@ -76,6 +86,11 @@ public class GameController : MonoBehaviour
                 Arrow[curPlayer].SetActive(true);
                 Debug.Log("생김!");
             }
+        }
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            moneyTXT[i].text = "Money:" + money[i];
         }
 
 
@@ -191,7 +206,8 @@ public class GameController : MonoBehaviour
 
         if (curPlayer == player || i == player)
         {
-            //SceneManager.LoadScene("MiniGame");
+            Debug.Log("플레이어 전투");
+            SceneManager.LoadScene("MiniGame");
             Debug.Log("Move Scene");
         }
         else
