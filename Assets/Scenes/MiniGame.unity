@@ -681,7 +681,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uB098\n\uBC29\uC5B4+2"
+  m_Text: "\uB098\n\uBC29\uC5B4+1\n"
 --- !u!222 &153088127
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1402,7 +1402,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '15
+  m_Text: '10
 
 '
 --- !u!222 &425418240
@@ -1551,7 +1551,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 15
+  m_Text: '10
+
+'
 --- !u!222 &449737458
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3585,7 +3587,6 @@ GameObject:
   - component: {fileID: 1320156075}
   - component: {fileID: 1320156079}
   - component: {fileID: 1320156080}
-  - component: {fileID: 1320156081}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -3857,40 +3858,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1320156081
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1320156071}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a2fd1ea202e07745a56011593961b49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  diceRoll: {fileID: 0}
-  rollBtn: {fileID: 0}
-  Pos: {fileID: 0}
-  players: []
-  Arrow: []
-  moneyTXT: []
-  roundTXT: {fileID: 0}
-  curPos: 
-  player: 0
-  money: 
-  curPlayer: 0
-  randEvent: 0
-  round: 1
-  stake: 0
-  num1: 0
-  winner: 0
-  max: 0
-  isPlaying: 0
-  isPaused: 0
-  isMainGame: 1
-  playerWin: 0
-  currentEnemy: 0
 --- !u!1 &1371267180
 GameObject:
   m_ObjectHideFlags: 0
@@ -5010,7 +4977,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 15
+  m_Text: '10
+
+'
 --- !u!222 &1788787716
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6156,7 +6125,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 15
+  m_Text: '10
+
+'
 --- !u!222 &2104241162
 CanvasRenderer:
   m_ObjectHideFlags: 0
