@@ -36,7 +36,8 @@ public class GameController : MonoBehaviour
     public bool isPlaying = false;  // false = 진행중X(주사위 굴릴 수 있는 상태) true = 진행중O(주사위 못굴리는 상태)
     public bool isPaused = false;
     public bool isMainGame = true;
-    public bool playerWin;
+    public int playerWin;
+    public int currentEnemy;
 
     public void Awake()
     {
@@ -50,6 +51,7 @@ public class GameController : MonoBehaviour
         DontDestroyOnLoad(players[1]);
         DontDestroyOnLoad(players[2]);
         DontDestroyOnLoad(players[3]);
+        MiniGameManager.instance.gameController = this;
     }
 
     void Start()
@@ -221,7 +223,7 @@ public class GameController : MonoBehaviour
         stake = (money[i] / 2) + (money[curPlayer] / 2);
         money[i] -= money[i] / 2;
         money[curPlayer] -= money[curPlayer] / 2;
-
+        currentEnemy = i;
         if (curPlayer == player || i == player)
         {
             Debug.Log("플레이어 전투");
@@ -252,4 +254,16 @@ public class GameController : MonoBehaviour
         Time.timeScale = 0;
     }
 
+    public void CallPlayer(int flag)
+    {
+        playerWin = flag;
+        if (playerWin == 1)
+        {
+            money[player] += stake;
+        }
+        else if (playerWin == 2)
+        {
+            money[currentEnemy] += stake;
+        }
+    }
 }

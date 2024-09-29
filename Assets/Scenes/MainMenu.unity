@@ -2159,7 +2159,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1533914200
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2212,7 +2212,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+  m_Text: "\uAC8C\uC784\uC744 \uC2DC\uC791\uD558\uBA74 AI\uB4E4\uACFC \uC8FC\uC0AC\uC704
+    \uAC8C\uC784\uC744 \uD558\uAC8C \uB429\uB2C8\uB2E4. \uD134\uC774 \uB05D\uB0A0
+    \uB54C\uAE4C\uC9C0  \uB3C8\uC744 \uCD5C\uB300\uD55C \uBAA8\uC73C\uC138\uC694!"
 --- !u!222 &1533914202
 CanvasRenderer:
   m_ObjectHideFlags: 0
