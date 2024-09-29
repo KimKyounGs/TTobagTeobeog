@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEditorInternal;
+using Unity.Properties;
 
 public class GameController : MonoBehaviour
 {
@@ -34,6 +35,22 @@ public class GameController : MonoBehaviour
 
     public bool isPlaying = false;  // false = 진행중X(주사위 굴릴 수 있는 상태) true = 진행중O(주사위 못굴리는 상태)
     public bool isPaused = false;
+    public bool isMainGame = true;
+    public bool playerWin;
+
+    public void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(Arrow[0]);
+        DontDestroyOnLoad(Arrow[1]);
+        DontDestroyOnLoad(Arrow[2]);
+        DontDestroyOnLoad(Arrow[3]);
+        DontDestroyOnLoad(Pos);
+        DontDestroyOnLoad(players[0]);
+        DontDestroyOnLoad(players[1]);
+        DontDestroyOnLoad(players[2]);
+        DontDestroyOnLoad(players[3]);
+    }
 
     void Start()
     {
@@ -49,6 +66,17 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            isMainGame = false;
+            SceneManager.LoadScene("MiniGame");
+        }
+
+        if(!isMainGame)
+        {
+            return;
+        }
+
         for(int i = 0; i < players.Length; i++)
         {
             if (money[i] > max)
@@ -76,6 +104,11 @@ public class GameController : MonoBehaviour
                 Arrow[curPlayer].SetActive(true);
                 Debug.Log("생김!");
             }
+        }
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            moneyTXT[i].text = "Money:" + money[i];
         }
 
 
@@ -191,7 +224,8 @@ public class GameController : MonoBehaviour
 
         if (curPlayer == player || i == player)
         {
-            //SceneManager.LoadScene("MiniGame");
+            Debug.Log("플레이어 전투");
+            SceneManager.LoadScene("MiniGame");
             Debug.Log("Move Scene");
         }
         else

@@ -6,6 +6,7 @@ public class MiniGameDiceRoller : MonoBehaviour
     private Rigidbody diceRigidbody;
     public Transform[] diceSideTransforms; // 주사위 면 정보
     public float throwForce = 6f;   // 주사위를 던질 힘
+    
     void OnEnable()
     {
         diceRigidbody = GetComponent<Rigidbody>();
@@ -26,10 +27,11 @@ public class MiniGameDiceRoller : MonoBehaviour
 
     IEnumerator CheckDiceResult()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(4f);
 
         if (IsDiceStopped())
         {
+            Debug.Log("주사위가 다 멈췄습니다.");
             int result = CheckTopFace();
 
             // DiceController에 결과 전달
@@ -39,7 +41,14 @@ public class MiniGameDiceRoller : MonoBehaviour
 
     bool IsDiceStopped()
     {
-        return diceRigidbody.velocity.magnitude < 0.1f && diceRigidbody.angularVelocity.magnitude < 0.1f;
+        if (diceRigidbody.velocity.magnitude < 0.1f && diceRigidbody.angularVelocity.magnitude < 0.1f)
+        {
+            return true;
+        }
+        else {
+            Debug.Log(gameObject.name);
+            return false;
+        }
     }
 
     int CheckTopFace()

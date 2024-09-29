@@ -79,19 +79,25 @@ public class MiniGameDiceManager : MonoBehaviour
     {
         int diceToThrow = Mathf.Min(playerDiceCount, maxDicePerTurn);  // 굴릴 주사위 개수 결정
         Debug.Log($"플레이어가 {diceToThrow}개의 주사위를 던집니다.");
+        if (diceToThrow == 0)
+        {
+            MiniGameManager.instance.TurnChange();
+        }
         MiniGameManager.instance.diceController.SetNeedDiceCnt(diceToThrow);
         for (int i = 0; i < diceToThrow; i++)
         {
             GameObject dice = GetDiceFromPool(diceSpawnPoint.position);
             MiniGameDiceRoller roller = dice.GetComponent<MiniGameDiceRoller>();
             roller.RollDice();
+            MiniGameManager.instance.audioSource.clip = MiniGameManager.instance.diceClip;
+            MiniGameManager.instance.audioSource.Play();
 
             // 이번 턴에 던진 주사위 리스트에 추가
             currentTurnDice.Add(dice);
         }
 
         playerDiceCount -= diceToThrow;  // 굴린 주사위 개수 차감
-        MiniGameManager.instance.miniGameUIManager.SetDiceList(true, false, playerDiceCount);
+        MiniGameManager.instance.miniGameUIManager.SetDiceList(true, false, diceToThrow);
         Debug.Log($"플레이어가 주사위를 굴린 후 남은 주사위: {playerDiceCount}");
     }
 
@@ -100,19 +106,25 @@ public class MiniGameDiceManager : MonoBehaviour
     {
         int diceToThrow = Mathf.Min(aiDiceCount, maxDicePerTurn);  // 굴릴 주사위 개수 결정
         Debug.Log($"AI가 {diceToThrow}개의 주사위를 던집니다.");
+        if (diceToThrow == 0)
+        {
+            MiniGameManager.instance.TurnChange();
+        }
         MiniGameManager.instance.diceController.SetNeedDiceCnt(diceToThrow);
         for (int i = 0; i < diceToThrow; i++)
         {
             GameObject dice = GetDiceFromPool(diceSpawnPoint.position);
             MiniGameDiceRoller roller = dice.GetComponent<MiniGameDiceRoller>();
             roller.RollDice();
+            MiniGameManager.instance.audioSource.clip = MiniGameManager.instance.diceClip;
+            MiniGameManager.instance.audioSource.Play();
 
             // 이번 턴에 던진 주사위 리스트에 추가
             currentTurnDice.Add(dice);
         }
 
         aiDiceCount -= diceToThrow;  // 굴린 주사위 개수 차감
-        MiniGameManager.instance.miniGameUIManager.SetDiceList(false, false, aiDiceCount);
+        MiniGameManager.instance.miniGameUIManager.SetDiceList(false, false, diceToThrow);
         Debug.Log($"AI가 주사위를 굴린 후 남은 주사위: {aiDiceCount}");
     }
 
@@ -122,11 +134,13 @@ public class MiniGameDiceManager : MonoBehaviour
         {
             playerDiceCount += additionalDice;  // 플레이어 주사위에 추가
             Debug.Log($"플레이어가 재사용 가능한 주사위 {additionalDice}개를 추가하여 총 {playerDiceCount}개의 주사위를 가집니다.");
+            MiniGameManager.instance.miniGameUIManager.SetDiceList(true, true, additionalDice);
         }
         else
         {
             aiDiceCount += additionalDice;  // AI 주사위에 추가
             Debug.Log($"AI가 재사용 가능한 주사위 {additionalDice}개를 추가하여 총 {aiDiceCount}개의 주사위를 가집니다.");
+            MiniGameManager.instance.miniGameUIManager.SetDiceList(false, true, additionalDice);
         }
     }
 

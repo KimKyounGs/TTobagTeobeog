@@ -36,7 +36,7 @@ public class ButtonController : MonoBehaviour
         if (button == buttonsA[0])
         {
             backgroundMusic.Stop(); // 배경 음악 멈추기
-            SceneManager.LoadScene("NextScene"); // "NextScene"을 원하는 씬 이름으로 바꿔주세요
+            SceneManager.LoadScene("MainGame"); // "NextScene"을 원하는 씬 이름으로 바꿔주세요
             return; // 이후 로직을 수행하지 않도록 종료
         }
 

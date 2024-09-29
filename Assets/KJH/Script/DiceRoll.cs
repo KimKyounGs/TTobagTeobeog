@@ -5,7 +5,6 @@ using static UnityEditor.PlayerSettings;
 
 public class DiceRoll : MonoBehaviour
 {
-    public EventStage eventStage;
     public GameController controller;
     public Transform[] DiceNum; // ÁÖ»çÀ§ ´«
 

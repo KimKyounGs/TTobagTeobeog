@@ -569,6 +569,8 @@ MonoBehaviour:
   max: 0
   isPlaying: 0
   isPaused: 0
+  isMainGame: 1
+  playerWin: 0
 --- !u!1 &67358045
 GameObject:
   m_ObjectHideFlags: 0
@@ -3421,7 +3423,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b020a0c85bded442b77c5e98b519d1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventStage: {fileID: 0}
   controller: {fileID: 59137778}
   DiceNum:
   - {fileID: 301534350}
