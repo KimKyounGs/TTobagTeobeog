@@ -71,7 +71,7 @@ public class MiniGameUIManager : MonoBehaviour
                     }
                 }
                 playerDiceIndex += cnt;
-                if (playerDiceIndex > 14) playerDiceIndex = 14;
+                if (playerDiceIndex > 14) playerDiceIndex = 15;
             }
         }
         else
@@ -98,7 +98,7 @@ public class MiniGameUIManager : MonoBehaviour
                     }
                 }
                 aiDiceIndex += cnt;
-                if (aiDiceIndex > 14) aiDiceIndex = 14;
+                if (aiDiceIndex > 14) aiDiceIndex = 15;
             }
         }
     }
@@ -120,7 +120,7 @@ public class MiniGameUIManager : MonoBehaviour
                     }
                 }
                 playerShieldIndex += cnt;
-                if (playerShieldIndex > 5) playerShieldIndex = 5;
+                if (playerShieldIndex > 5) playerShieldIndex = 6;
             }
             else 
             {
@@ -147,7 +147,7 @@ public class MiniGameUIManager : MonoBehaviour
                     }
                 }
                 aiShieldIndex += cnt;
-                if (aiShieldIndex > 5) aiShieldIndex = 5;
+                if (aiShieldIndex > 5) aiShieldIndex = 6;
             }
             else 
             {

@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class MiniGamePlayer : MonoBehaviour
 {
-    private int health = 15;
+    private int health = 10;
     private int defense = 0;
     void Start()
     {
-        health = 15;
+        health = 10;
         MiniGameManager.instance.player = this; 
     }
 
@@ -45,7 +45,7 @@ public class MiniGamePlayer : MonoBehaviour
     public void IncreaseDefense(int amount)
     {
         defense += amount;
-        if (defense > 8) defense = 8; // 최대값 8
+        if (defense > 6) defense = 6; // 최대값 8
 
         MiniGameManager.instance.miniGameUIManager.SetShieldList(true, true, amount);
     }
