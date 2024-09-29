@@ -63,7 +63,7 @@ public class MiniGameDiceController : MonoBehaviour
     // 결과값을 차례로 텀을 두고 처리하는 함수
     IEnumerator SimulateResults()
     {
-        yield return new WaitForSeconds(1f); // 텀을 두고 실행
+        yield return new WaitForSeconds(1.8f); // 텀을 두고 실행
 
         // 주사위 6 처리
         if (side6Result > 0)
@@ -77,6 +77,8 @@ public class MiniGameDiceController : MonoBehaviour
             {
                 MiniGameManager.instance.diceManager.AddReusableDice(false, side6Result);
             }
+            MiniGameManager.instance.audioSource.clip = MiniGameManager.instance.windClip;// 바람 소리
+            MiniGameManager.instance.audioSource.Play();
             yield return new WaitForSeconds(1.5f);
         }
 
@@ -92,7 +94,9 @@ public class MiniGameDiceController : MonoBehaviour
             {
                 MiniGameManager.instance.ai.IncreaseDefense(side2Result);
             }
-            yield return new WaitForSeconds(1.5f);
+            MiniGameManager.instance.audioSource.clip = MiniGameManager.instance.defenseClip;
+            MiniGameManager.instance.audioSource.Play();
+            yield return new WaitForSeconds(1.8f);
         }
 
         // 주사위 3 처리
@@ -101,7 +105,9 @@ public class MiniGameDiceController : MonoBehaviour
             Debug.Log("주사위 3 결과 실행");
             MiniGameManager.instance.ai.IncreaseDefense(side3Result);
             MiniGameManager.instance.player.IncreaseDefense(side3Result);
-            yield return new WaitForSeconds(1.5f);
+            MiniGameManager.instance.audioSource.clip = MiniGameManager.instance.defenseClip;
+            MiniGameManager.instance.audioSource.Play();
+            yield return new WaitForSeconds(1.8f);
         }
 
         // 주사위 4 처리
@@ -116,7 +122,9 @@ public class MiniGameDiceController : MonoBehaviour
             {
                 MiniGameManager.instance.ai.DecreaseHealth(side4Result);
             }
-            yield return new WaitForSeconds(1.5f);
+            MiniGameManager.instance.audioSource.clip = MiniGameManager.instance.HitClip;
+            MiniGameManager.instance.audioSource.Play();
+            yield return new WaitForSeconds(1.8f);
         }
 
         // 주사위 5 처리
@@ -125,7 +133,9 @@ public class MiniGameDiceController : MonoBehaviour
             Debug.Log("주사위 5 결과 실행");
             MiniGameManager.instance.ai.DecreaseHealth(side5Result);
             MiniGameManager.instance.player.DecreaseHealth(side5Result);
-            yield return new WaitForSeconds(1.5f);
+            MiniGameManager.instance.audioSource.clip = MiniGameManager.instance.HitClip;
+            MiniGameManager.instance.audioSource.Play();
+            yield return new WaitForSeconds(1.8f);
         }
 
         // 주사위 1 처리 (결과값이 모아진 후 한 번에 처리)
@@ -140,11 +150,13 @@ public class MiniGameDiceController : MonoBehaviour
             {
                 MiniGameManager.instance.player.DecreaseHealth(side1Result * 2);
             }
-            yield return new WaitForSeconds(1.5f);
+            MiniGameManager.instance.audioSource.clip = MiniGameManager.instance.attackClip;
+            MiniGameManager.instance.audioSource.Play();
+            yield return new WaitForSeconds(1.8f);
         }
 
         // 턴 변경
-        yield return new WaitForSeconds(1.5f); // 텀을 두고 실행
+        yield return new WaitForSeconds(1.8f); // 텀을 두고 실행
         MiniGameManager.instance.TurnChange();
 
         // 결과 처리 후 변수 초기화

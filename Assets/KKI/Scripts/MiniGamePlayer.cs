@@ -22,12 +22,13 @@ public class MiniGamePlayer : MonoBehaviour
         else
         {
             amount -= defense;
+            DecreaseDefense(defense);
         }
 
         health -= amount;
         if (health <= 0)
         {
-            MiniGameManager.instance.EndGame(false);
+            health = 0;
         }
 
         MiniGameManager.instance.miniGameUIManager.SetHealthText(true, health);
